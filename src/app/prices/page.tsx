@@ -55,14 +55,6 @@ export default function Prices() {
           ✈️ Написать в Telegram
         </a>
       </section>
-      {/* ОТЗЫВЫ */}
-<section className="about" style={{ maxWidth: "900px", margin: "0 auto" }}>
-  <h2 className="section-title">Отзывы</h2>
-  <ReviewsList />
-  <div style={{ marginTop: "2rem", maxWidth: "600px", margin: "2rem auto 0" }}>
-    <ReviewForm />
-  </div>
-</section>
     </>
   );
 }

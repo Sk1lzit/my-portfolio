@@ -1,69 +1,139 @@
+import Link from "next/link";
 import Image from "next/image";
+import Typewriter from "@/components/Typewriter";
+import ReviewsList from "@/components/ReviewsList";
+import ReviewForm from "@/components/ReviewForm";
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+    <>
+      {/* HERO */}
+      <section className="hero">
+        <div className="hero-content">
+          <div className="hero-avatar">
             <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
+              src="/images/avatar.png"
+              alt="Sk1lz"
+              width={150}
+              height={150}
             />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+          </div>
+          <p className="hero-greeting">
+            Hello! I am <span className="highlight">Sk1lz</span>
+          </p>
+          <h1 className="hero-title">
+            I'm a{" "}
+            <Typewriter
+              texts={["Frontend Developer", "Discord Bot Developer", "Website Coder"]}
+              className="typewriter"
+            />
+          </h1>
+          <p className="hero-subtitle">
+            Frontend-разработчик. Создаю Discord-ботов и веб-приложения.
+            Python, JavaScript, React, discord.py.
+          </p>
+          <div className="hero-buttons">
+            <a
+              href="https://t.me/Sk1lzzz"
+              target="_blank"
+              rel="noopener"
+              className="btn btn-primary"
+            >
+              ✈️ Заказать в Telegram
+            </a>
+            <Link href="/works" className="btn btn-secondary">Мои проекты
+            </Link>
+          </div>
         </div>
-      </main>
-    </div>
+      </section>
+
+      {/* ABOUT */}
+      <section className="about">
+        <h2 className="section-title">Обо мне</h2>
+        <div className="about-content">
+          <p>
+            Закончил онлайн-школу <strong>SkillFactory</strong> по специализации{" "}
+            <strong>Frontend-разработчик</strong>. Владею языками:{" "}
+            <strong>Python, Java, JavaScript, C++, C#, HTML</strong>.
+          </p>
+          <p>
+            Работаю с <strong>React</strong> (хуки), <strong>Git</strong> и современными
+            инструментами. В Discord-разработке использую <strong>discord.py</strong>,
+            Slash-команды, гибридные команды, интерактивные меню.
+          </p>
+
+          <h3 style={{ textAlign: "center", color: "var(--purple-light)", marginTop: "2rem", marginBottom: "1rem" }}>
+            Навыки
+          </h3>
+          <div className="skills-bars">
+            {[
+              ["Python", 85],
+              ["JavaScript", 80],
+              ["React", 75],
+              ["discord.py", 90],
+              ["Git", 80],
+              ["HTML/CSS", 90],
+            ].map(([name, val]) => (
+              <div className="skill-bar" key={name}>
+                <div className="skill-header">
+                  <span>{name}</span>
+                  <span>{val}%</span>
+                </div>
+                <div className="skill-progress">
+                  <div className="skill-fill" style={{ width: `${val}%` }} />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* PROCESS */}
+      <section className="process">
+        <h2 className="section-title">Как я работаю</h2>
+        <div className="process-grid">
+          {[
+            { n: "01", t: "Обсуждение ТЗ", d: "Обсуждаем задачу, детали, сроки и цену" },
+            { n: "02", t: "План работы", d: "Составляю план и этапы разработки" },
+            { n: "03", t: "Разработка", d: "Пишу код, показываю промежуточные результаты" },
+            { n: "04", t: "Тестирование", d: "Проверяю всё, исправляю баги" },
+            { n: "05", t: "Сдача и поддержка", d: "Передаю готовый проект и помогаю с запуском" },
+          ].map((s) => (
+            <div className="process-card" key={s.n}>
+              <div className="process-num">{s.n}</div>
+              <h3>{s.t}</h3>
+              <p>{s.d}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="cta">
+        <h2>Готов обсудить проект?</h2>
+        <p>Пиши — отвечу в течение 15 минут</p>
+        <div className="hero-buttons">
+          <a
+            href="https://t.me/Sk1lzzz"
+            target="_blank"
+            rel="noopener"
+            className="btn btn-primary"
+          >
+            ✈️ Telegram
+          </a>
+          <Link href="/contact" className="btn btn-secondary">
+            Все контакты
+          </Link>
+        </div>
+      </section>
+      {/* ОТЗЫВЫ */}
+<section className="about" style={{ maxWidth: "900px", margin: "0 auto" }}>
+  <h2 className="section-title">Отзывы</h2>
+  <ReviewsList />
+  <div style={{ marginTop: "2rem", maxWidth: "600px", margin: "2rem auto 0" }}>
+    <ReviewForm />
+  </div>
+</section>
+    </>
   );
 }

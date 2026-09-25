@@ -1,0 +1,22 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Review {
+  id        String   @id @default(cuid())
+  clerkId   String   // ID пользователя из Clerk
+  name      String   // Имя автора
+  avatar    String?  // Аватарка (URL)
+  rating    Int      // Оценка 1-5
+  text      String   // Текст отзыва
+  approved  Boolean  @default(false) // Модерация
+  createdAt DateTime @default(now())
+
+  @@index([approved])
+  @@index([clerkId])
+}

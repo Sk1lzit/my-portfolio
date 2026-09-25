@@ -14,18 +14,20 @@ export default function ParticleBackground() {
 
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
     const LINK_DISTANCE = 140;
-    let w = 0,
-      h = 0;
+    let w = 0;
+    let h = 0;
     let particles: any[] = [];
     const mouse = { x: -9999, y: -9999 };
     let animationId: number;
 
     function resize() {
       if (!canvas) return;
-      w = canvas.clientWidth;
-      h = canvas.clientHeight;
+      w = window.innerWidth;
+      h = window.innerHeight;
       canvas.width = w * dpr;
       canvas.height = h * dpr;
+      canvas.style.width = w + "px";
+      canvas.style.height = h + "px";
       ctx!.setTransform(dpr, 0, 0, dpr, 0, 0);
       seedParticles();
     }
@@ -106,8 +108,17 @@ export default function ParticleBackground() {
   return (
     <canvas
       ref={canvasRef}
-      className="fixed top-0 left-0 w-screen h-screen -z-10 pointer-events-none"
-      style={{ background: "#0a0118" }}
+      style={{
+        position: "fixed",
+        top: 0,
+        left: 0,
+        width: "100vw",
+        height: "100vh",
+        zIndex: -10,
+        pointerEvents: "none",
+        background: "#0a0118",
+        display: "block",
+      }}
     />
   );
 }

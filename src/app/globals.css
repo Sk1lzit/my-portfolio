@@ -22,13 +22,14 @@ html { scroll-behavior: smooth; }
 
 body {
     font-family: 'Segoe UI', Tahoma, sans-serif;
-    background: var(--bg-dark);
+    background: #0a0118;
     color: var(--text);
-    line-height: 1.6;
+    line-height: 1.75;
     min-height: 100vh;
     overflow-x: hidden;
+    font-size: 16px;
+    letter-spacing: 0.2px;
 }
-
 /* ===== НАВИГАЦИЯ ===== */
 .navbar {
     position: fixed;
@@ -786,4 +787,123 @@ section {
     background-clip: text;
     font-weight: 700;
     font-size: 1.5rem;
+}
+
+/* ===== КАСТОМНЫЙ СКРОЛЛБАР ===== */
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #0a0118;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #8b5cf6, #6d28d9);
+    border-radius: 10px;
+    border: 2px solid #0a0118;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #a78bfa, #8b5cf6);
+}
+
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #8b5cf6 #0a0118;
+}
+
+/* ===== ЧИТАЕМОСТЬ ===== */
+p, li {
+    line-height: 1.75;
+}
+
+.project-info p,
+.price-card p,
+.faq-item p {
+    line-height: 1.8;
+    letter-spacing: 0.2px;
+}
+
+/* ===== КАСТОМНЫЙ КУРСОР ===== */
+.custom-cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 12px;
+    height: 12px;
+    background: #a78bfa;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transition: width 0.2s, height 0.2s, background 0.2s, opacity 0.2s;
+    box-shadow: 0 0 20px rgba(167, 139, 250, 0.8),
+                0 0 40px rgba(139, 92, 246, 0.4);
+    mix-blend-mode: screen;
+}
+
+.custom-cursor[data-pointer="true"] {
+    width: 32px;
+    height: 32px;
+    background: rgba(167, 139, 250, 0.3);
+    border: 2px solid #a78bfa;
+}
+
+/* Скрываем стандартный курсор на десктопе */
+@media (pointer: fine) {
+    body, a, button {
+        cursor: none;
+    }
+}
+
+/* На тач-устройствах — обычный */
+@media (pointer: coarse) {
+    .custom-cursor {
+        display: none;
+    }
+}
+
+/* ===== КНОПКА НАВЕРХ ===== */
+.scroll-to-top {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #8b5cf6, #6d28d9);
+    color: white;
+    border: none;
+    font-size: 1.5rem;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 100;
+    box-shadow: 0 0 30px rgba(139, 92, 246, 0.5);
+    transition: all 0.3s;
+}
+
+.scroll-to-top:hover {
+    transform: translateY(-5px) scale(1.1);
+    box-shadow: 0 0 50px rgba(139, 92, 246, 0.8);
+}
+
+@media (max-width: 768px) {
+    .scroll-to-top {
+        width: 44px;
+        height: 44px;
+        bottom: 1rem;
+        right: 1rem;
+        font-size: 1.3rem;
+    }
+}
+
+/* ===== PARTY MODE ===== */
+body.party-mode {
+    animation: partyPulse 2s infinite;
+}
+
+@keyframes partyPulse {
+    0%, 100% { filter: hue-rotate(0deg); }
+    50% { filter: hue-rotate(180deg); }
 }

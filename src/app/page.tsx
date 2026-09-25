@@ -29,8 +29,8 @@ export default function Home() {
             />
           </h1>
           <p className="hero-subtitle">
-            Frontend-разработчик. Создаю Discord-ботов и веб-приложения.
-            Python, JavaScript, React, discord.py.
+            Создаю ботов и веб-приложения, которые автоматизируют рутину
+            и приносят прибыль.
           </p>
           <div className="hero-buttons">
             <a

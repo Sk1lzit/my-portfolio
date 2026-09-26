@@ -9,6 +9,8 @@ import EasterEgg from "@/components/EasterEgg";
 import CustomCursor from "@/components/CustomCursor";
 import "./globals.css";
 import ThemeSwitcher from "@/components/ThemeSwitcher";
+import { Analytics } from "@vercel/analytics/react";
+import ToastContainer from "@/components/Toast";
 
 
 export const metadata: Metadata = {
@@ -45,6 +47,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <link rel="icon" href="/images/favicon.jpg" />
         </head>
         <body>
+          <ToastContainer />
           <CustomCursor />
           <ParticleBackground />
           <EasterEgg />
@@ -97,6 +100,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <Link href="/terms">Согласие</Link>
             </div>
           </footer>
+          <Analytics />
         </body>
       </html>
     </ClerkProvider>

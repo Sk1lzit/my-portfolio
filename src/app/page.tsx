@@ -4,6 +4,19 @@ import Typewriter from "@/components/Typewriter";
 import ReviewsList from "@/components/ReviewsList";
 import ReviewForm from "@/components/ReviewForm";
 import SkillBar from "@/components/SkillBar";
+import HeroGreeting from "@/components/HeroGreeting";
+
+export const metadata = {
+  title: "Sk1lz — Разработка на Python, Java, React",
+  description:
+    "Разработка программных продуктов на Python, Java, React. Автоматизация, боты, веб-приложения. Кейсы, цены, отзывы.",
+  openGraph: {
+    title: "Sk1lz — Разработка на Python, Java, React",
+    description: "Разработка программных продуктов. Автоматизация, боты, веб-приложения.",
+    url: "https://my-portfolio-cskm.vercel.app",
+    images: ["/og-image.png"],
+  },
+};
 
 export default function Home() {
   return (
@@ -19,9 +32,7 @@ export default function Home() {
               height={150}
             />
           </div>
-          <p className="hero-greeting">
-            Hello! I am <span className="highlight">Sk1lz</span>
-          </p>
+          <HeroGreeting />
           <h1 className="hero-title">
             I'm a{" "}
             <Typewriter

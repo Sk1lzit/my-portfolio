@@ -1,5 +1,19 @@
 export const metadata = {
-  title: "Contact — Sk1lz",
+  title: "Контакты — Sk1lz",
+  description: "Свяжитесь со мной — Telegram, Discord, GitHub. Отвечу в течение 15 минут.",
+  openGraph: {
+    title: "Контакты — Sk1lz",
+    description: "Свяжитесь со мной — Telegram, Discord, GitHub.",
+    url: "https://my-portfolio-cskm.vercel.app/contact",
+    images: ["/og-image.png"],
+  },
+};
+
+import OnlineStatus from "@/components/OnlineStatus";
+
+export const metadata = {
+  title: "Контакты — Sk1lz",
+  description: "Свяжитесь со мной — Telegram, Discord, GitHub. Отвечу в течение 15 минут.",
 };
 
 export default function Contact() {
@@ -9,6 +23,7 @@ export default function Contact() {
         <h1 className="section-title">Свяжитесь со мной</h1>
         <p>Отвечу в течение 15 минут</p>
       </section>
+      <OnlineStatus />
 
       <section className="contacts">
         <a

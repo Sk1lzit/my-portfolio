@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useUser, SignInButton } from "@clerk/nextjs";
+import { showToast } from "@/components/Toast";
 
 export default function ReviewForm({ onSuccess }: { onSuccess?: () => void }) {
   const { isSignedIn } = useUser();
@@ -38,12 +39,14 @@ export default function ReviewForm({ onSuccess }: { onSuccess?: () => void }) {
         setText("");
         setRating(5);
         onSuccess?.();
+        showToast("Отзыв отправлен на модерацию", "success");
       } else {
         const data = await res.json();
-        alert(data.error || "Ошибка");
+        showToast(data.error || "Ошибка отправки", "error");
         setStatus("error");
       }
     } catch {
+      showToast("Не удалось отправить. Попробуйте позже", "error");
       setStatus("error");
     }
   }

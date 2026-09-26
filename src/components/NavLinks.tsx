@@ -8,6 +8,7 @@ const LINKS = [
   { href: "/about", label: "About" },
   { href: "/works", label: "Projects" },
   { href: "/prices", label: "Цены" },
+  { href: "/notes", label: "Заметки" },
   { href: "/faq", label: "FAQ" },
   { href: "/contact", label: "Contact" },
 ];

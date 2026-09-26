@@ -50,6 +50,21 @@ export async function POST(req: Request) {
     const existing = await prisma.review.findFirst({
       where: { clerkId: userId },
     });
+    // Rate limiting: не более 1 отзыва в минуту
+const oneMinuteAgo = new Date(Date.now() - 60 * 1000);
+const recentReview = await prisma.review.findFirst({
+  where: {
+    clerkId: userId,
+    createdAt: { gte: oneMinuteAgo },
+  },
+});
+
+if (recentReview) {
+  return NextResponse.json(
+    { error: "Подождите минуту перед следующим отзывом" },
+    { status: 429 }
+  );
+}
     if (existing) {
       return NextResponse.json({ error: "Вы уже оставляли отзыв" }, { status: 400 });
     }

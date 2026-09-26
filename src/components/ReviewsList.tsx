@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import ReviewSkeleton from "./ReviewSkeleton";
 
 interface Review {
   id: string;
@@ -26,7 +27,13 @@ export default function ReviewsList() {
   }, []);
 
   if (loading) {
-    return <p style={{ textAlign: "center", color: "var(--text-muted)" }}>Загрузка отзывов...</p>;
+    return (
+      <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+        <ReviewSkeleton />
+        <ReviewSkeleton />
+        <ReviewSkeleton />
+      </div>
+    );
   }
 
   if (reviews.length === 0) {

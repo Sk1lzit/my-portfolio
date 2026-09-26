@@ -8,12 +8,35 @@ import ScrollToTop from "@/components/ScrollToTop";
 import EasterEgg from "@/components/EasterEgg";
 import CustomCursor from "@/components/CustomCursor";
 import "./globals.css";
+import ThemeSwitcher from "@/components/ThemeSwitcher";
+
 
 export const metadata: Metadata = {
   title: "Sk1lz — Разработка на Python, Java, React",
-  description: "Разработка программных продуктов на Python, Java, React",
+  description: "Разработка программных продуктов на Python, Java, React. Автоматизация, боты, веб-приложения.",
+  openGraph: {
+    title: "Sk1lz — Разработка на Python, Java, React",
+    description: "Разработка программных продуктов. Автоматизация, боты, веб-приложения.",
+    url: "https://my-portfolio-cskm.vercel.app",
+    siteName: "Sk1lz",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Sk1lz — разработка на Python, Java, React",
+      },
+    ],
+    locale: "ru_RU",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Sk1lz — Разработка на Python, Java, React",
+    description: "Разработка программных продуктов.",
+    images: ["/og-image.png"],
+  },
 };
-
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <ClerkProvider>
@@ -25,6 +48,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <CustomCursor />
           <ParticleBackground />
           <EasterEgg />
+          <ThemeSwitcher />
 
           <nav className="navbar">
             <div className="nav-container">
@@ -42,6 +66,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 <NavLinks />
               </ul>
               <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
+                <ThemeSwitcher /> 
                 <Show when="signed-out">
                   <SignInButton mode="modal">
                     <button className="btn" style={{ background: "transparent", color: "#a78bfa" }}>

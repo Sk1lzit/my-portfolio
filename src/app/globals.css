@@ -18,7 +18,10 @@
     --border: rgba(139, 92, 246, 0.2);
 }
 
-html { scroll-behavior: smooth; }
+html {
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+}
 
 body {
     font-family: 'Segoe UI', Tahoma, sans-serif;
@@ -837,7 +840,7 @@ p, li {
     border-radius: 50%;
     pointer-events: none;
     z-index: 9999;
-    transition: width 0.2s, height 0.2s, background 0.2s, opacity 0.2s;
+    transition: width 0.2s, height 0.2s, background 0.2s, opacity 0.2s, box-shadow 0.2s;
     box-shadow: 0 0 20px rgba(167, 139, 250, 0.8),
                 0 0 40px rgba(139, 92, 246, 0.4);
     mix-blend-mode: screen;
@@ -848,6 +851,19 @@ p, li {
     height: 32px;
     background: rgba(167, 139, 250, 0.3);
     border: 2px solid #a78bfa;
+}
+
+/* ===== КУРСОР НА СВЕТЛОЙ ТЕМЕ ===== */
+[data-theme="light"] .custom-cursor {
+    background: #6d28d9;                  /* тёмно-фиолетовый — виден на белом */
+    mix-blend-mode: normal;               /* без blending */
+    box-shadow: 0 0 20px rgba(109, 40, 217, 0.6),
+                0 0 40px rgba(109, 40, 217, 0.3);
+}
+
+[data-theme="light"] .custom-cursor[data-pointer="true"] {
+    background: rgba(109, 40, 217, 0.2);
+    border: 2px solid #6d28d9;
 }
 
 /* Скрываем стандартный курсор на десктопе */
@@ -906,4 +922,93 @@ body.party-mode {
 @keyframes partyPulse {
     0%, 100% { filter: hue-rotate(0deg); }
     50% { filter: hue-rotate(180deg); }
+}
+
+/* ===== СВЕТЛАЯ ТЕМА ===== */
+[data-theme="light"] {
+    --bg-dark: #f5f5f7;
+    --bg-card: #ffffff;
+    --purple: #7c3aed;
+    --purple-light: #6d28d9;
+    --purple-dark: #5b21b6;
+    --text: #1a1a2e;
+    --text-muted: #52525b;
+    --border: rgba(124, 58, 237, 0.2);
+}
+
+[data-theme="light"] body {
+    background: #f5f5f7;
+    background-image:
+        radial-gradient(circle at 20% 30%, rgba(124, 58, 237, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(124, 58, 237, 0.05) 0%, transparent 50%);
+}
+
+[data-theme="light"] #bg-canvas {
+    background: #f5f5f7;
+}
+
+[data-theme="light"] .navbar {
+    background: rgba(245, 245, 247, 0.9);
+    border-bottom: 1px solid rgba(124, 58, 237, 0.15);
+}
+
+[data-theme="light"] .price-card,
+[data-theme="light"] .project-card,
+[data-theme="light"] .contact-card,
+[data-theme="light"] .process-card {
+    box-shadow: 0 2px 20px rgba(124, 58, 237, 0.08);
+}
+
+[data-theme="light"] .footer {
+    background: rgba(245, 245, 247, 0.6);
+}
+
+/* Плавный переход при смене темы */
+html {
+    transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+body {
+    transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+.navbar,
+.price-card,
+.project-card,
+.contact-card,
+.process-card,
+.cta {
+    transition: background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+/* ===== ПЛАВНАЯ СМЕНА ТЕМЫ ===== */
+html,
+body,
+.navbar,
+.nav-links a,
+.logo,
+.logo-text,
+.card,
+.price-card,
+.project-card,
+.contact-card,
+.process-card,
+.service-card,
+.cta,
+.footer,
+.footer-links a,
+.skill-progress,
+.skill-fill,
+input,
+textarea,
+button,
+h1, h2, h3, h4, h5, h6,
+p,
+span,
+a,
+div {
+    transition: background-color 0.35s ease,
+                color 0.35s ease,
+                border-color 0.35s ease,
+                box-shadow 0.35s ease;
 }

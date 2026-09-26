@@ -20,6 +20,30 @@ export default function ParticleBackground() {
     const mouse = { x: -9999, y: -9999 };
     let animationId: number;
 
+    // Определяем текущую тему
+    function getTheme() {
+      return document.documentElement.getAttribute("data-theme") === "light"
+        ? "light"
+        : "dark";
+    }
+
+    // Цвета в зависимости от темы
+    function getColors() {
+      const theme = getTheme();
+      if (theme === "light") {
+        return {
+          bg: "#f5f5f7",
+          particle: "124, 58, 237",
+          link: "124, 58, 237",
+        };
+      }
+      return {
+        bg: "#0a0118",
+        particle: "139, 92, 246",
+        link: "139, 92, 246",
+      };
+    }
+
     function resize() {
       if (!canvas) return;
       w = window.innerWidth;
@@ -34,18 +58,20 @@ export default function ParticleBackground() {
 
     function seedParticles() {
       const count = Math.min(90, Math.round((w * h) / 15000));
+      const colors = getColors();
       particles = Array.from({ length: count }, () => ({
         x: Math.random() * w,
         y: Math.random() * h,
         vx: (Math.random() - 0.5) * 0.4,
         vy: (Math.random() - 0.5) * 0.4,
         radius: Math.random() * 1.5 + 1,
-        color: `rgba(139, 92, 246, ${Math.random() * 0.4 + 0.1})`,
+        color: `rgba(${colors.particle}, ${Math.random() * 0.4 + 0.1})`,
       }));
     }
 
     function animate() {
       if (!ctx) return;
+      const colors = getColors();
       ctx.clearRect(0, 0, w, h);
 
       for (let i = 0; i < particles.length; i++) {
@@ -78,7 +104,7 @@ export default function ParticleBackground() {
             ctx.beginPath();
             ctx.moveTo(p.x, p.y);
             ctx.lineTo(p2.x, p2.y);
-            ctx.strokeStyle = `rgba(139, 92, 246, ${alpha})`;
+            ctx.strokeStyle = `rgba(${colors.link}, ${alpha})`;
             ctx.lineWidth = 0.8;
             ctx.stroke();
           }
@@ -92,6 +118,20 @@ export default function ParticleBackground() {
       mouse.y = e.clientY;
     }
 
+    // Слушаем смену темы — перезапускаем частицы с новыми цветами
+    const themeObserver = new MutationObserver(() => {
+      const colors = getColors();
+      // Перекрашиваем существующие частицы
+      particles.forEach((p) => {
+        p.color = `rgba(${colors.particle}, ${Math.random() * 0.4 + 0.1})`;
+      });
+    });
+
+    themeObserver.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["data-theme"],
+    });
+
     resize();
     animate();
 
@@ -102,6 +142,7 @@ export default function ParticleBackground() {
       cancelAnimationFrame(animationId);
       window.removeEventListener("resize", resize);
       window.removeEventListener("mousemove", handleMouse);
+      themeObserver.disconnect();
     };
   }, []);
 
@@ -116,8 +157,8 @@ export default function ParticleBackground() {
         height: "100vh",
         zIndex: -10,
         pointerEvents: "none",
-        background: "#0a0118",
         display: "block",
+        transition: "background 0.4s ease",
       }}
     />
   );

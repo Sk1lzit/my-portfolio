@@ -3,6 +3,7 @@ import Image from "next/image";
 import Typewriter from "@/components/Typewriter";
 import ReviewsList from "@/components/ReviewsList";
 import ReviewForm from "@/components/ReviewForm";
+import SkillBar from "@/components/SkillBar";
 
 export default function Home() {
   return (
@@ -73,16 +74,8 @@ export default function Home() {
               ["discord.py", 90],
               ["Git", 80],
               ["HTML/CSS", 90],
-            ].map(([name, val]) => (
-              <div className="skill-bar" key={name}>
-                <div className="skill-header">
-                  <span>{name}</span>
-                  <span>{val}%</span>
-                </div>
-                <div className="skill-progress">
-                  <div className="skill-fill" style={{ width: `${val}%` }} />
-                </div>
-              </div>
+              ].map(([name, val]) => (
+              <SkillBar key={name as string} name={name as string} value={val as number} />
             ))}
           </div>
         </div>

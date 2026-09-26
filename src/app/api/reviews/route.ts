@@ -12,7 +12,12 @@ export async function GET() {
       orderBy: { createdAt: "desc" },
       take: 50,
     });
-    return NextResponse.json(reviews);
+
+    return NextResponse.json(reviews, {
+      headers: {
+        "Cache-Control": "public, s-maxage=60, stale-while-revalidate=300",
+      },
+    });
   } catch (error) {
     console.error("Ошибка GET /api/reviews:", error);
     return NextResponse.json({ error: "Не удалось загрузить" }, { status: 500 });
@@ -46,25 +51,25 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Оценка 1-5" }, { status: 400 });
     }
 
+    // Rate limit: 1 отзыв в минуту
+    const oneMinuteAgo = new Date(Date.now() - 60 * 1000);
+    const recentReview = await prisma.review.findFirst({
+      where: {
+        clerkId: userId,
+        createdAt: { gte: oneMinuteAgo },
+      },
+    });
+    if (recentReview) {
+      return NextResponse.json(
+        { error: "Подождите минуту перед следующим отзывом" },
+        { status: 429 }
+      );
+    }
+
     // Проверка: один отзыв от пользователя
     const existing = await prisma.review.findFirst({
       where: { clerkId: userId },
     });
-    // Rate limiting: не более 1 отзыва в минуту
-const oneMinuteAgo = new Date(Date.now() - 60 * 1000);
-const recentReview = await prisma.review.findFirst({
-  where: {
-    clerkId: userId,
-    createdAt: { gte: oneMinuteAgo },
-  },
-});
-
-if (recentReview) {
-  return NextResponse.json(
-    { error: "Подождите минуту перед следующим отзывом" },
-    { status: 429 }
-  );
-}
     if (existing) {
       return NextResponse.json({ error: "Вы уже оставляли отзыв" }, { status: 400 });
     }
@@ -84,24 +89,5 @@ if (recentReview) {
   } catch (error) {
     console.error("Ошибка POST /api/reviews:", error);
     return NextResponse.json({ error: "Ошибка сервера" }, { status: 500 });
-  }
-}
-
-export async function GET() {
-  try {
-    const reviews = await prisma.review.findMany({
-      where: { approved: true },
-      orderBy: { createdAt: "desc" },
-      take: 50,
-    });
-
-    return NextResponse.json(reviews, {
-      headers: {
-        "Cache-Control": "public, s-maxage=60, stale-while-revalidate=300",
-      },
-    });
-  } catch (error) {
-    console.error("Ошибка GET /api/reviews:", error);
-    return NextResponse.json({ error: "Не удалось загрузить" }, { status: 500 });
   }
 }

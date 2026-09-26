@@ -86,3 +86,22 @@ if (recentReview) {
     return NextResponse.json({ error: "Ошибка сервера" }, { status: 500 });
   }
 }
+
+export async function GET() {
+  try {
+    const reviews = await prisma.review.findMany({
+      where: { approved: true },
+      orderBy: { createdAt: "desc" },
+      take: 50,
+    });
+
+    return NextResponse.json(reviews, {
+      headers: {
+        "Cache-Control": "public, s-maxage=60, stale-while-revalidate=300",
+      },
+    });
+  } catch (error) {
+    console.error("Ошибка GET /api/reviews:", error);
+    return NextResponse.json({ error: "Не удалось загрузить" }, { status: 500 });
+  }
+}

@@ -8,7 +8,7 @@ const prisma = new PrismaClient();
 const ADMIN_CLERK_ID = "user_3JpUFnk1yaEDHWw6DtZbouoE4gz";
 
 export async function POST(req: Request) {
-  const WEBHOOK_SECRET = process.env.CLERK_WEBHOOK_SECRET;
+  const WEBHOOK_SECRET = process.env.CLERK_WEBHOOK_SECRET_V2;
 
   if (!WEBHOOK_SECRET) {
     console.error("[webhook] CLERK_WEBHOOK_SECRET не задан");

@@ -11,6 +11,7 @@ const LINKS = [
   { href: "/notes", label: "Заметки" },
   { href: "/faq", label: "FAQ" },
   { href: "/contact", label: "Contact" },
+  { href: "/dashboard", label: "Кабинет" },   // ← добавь
 ];
 
 export default function NavLinks() {

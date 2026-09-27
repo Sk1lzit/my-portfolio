@@ -64,6 +64,23 @@ export default function Dashboard() {
           Привет, {user?.firstName || user?.username || "друг"}! 👋
         </h1>
         <p>Личный кабинет</p>
+
+        {role === "ADMIN" && (
+          <div
+            style={{
+              display: "flex",
+              gap: "1rem",
+              justifyContent: "center",
+              marginTop: "1.5rem",
+              flexWrap: "wrap",
+            }}
+          >
+            <a href="/admin" className="btn btn-secondary">💬 Отзывы</a>
+            <a href="/admin/orders" className="btn btn-secondary">📦 Заказы</a>
+            <a href="/admin/projects" className="btn btn-secondary">💼 Проекты</a>
+            <a href="/admin/notes" className="btn btn-secondary">📝 Заметки</a>
+          </div>
+        )}
       </section>
 
       <section className="prices" style={{ maxWidth: "1100px" }}>
@@ -113,10 +130,7 @@ export default function Dashboard() {
             </a>
           </div>
         ) : (
-          <div
-            className="price-card"
-            style={{ overflowX: "auto", padding: "1rem" }}
-          >
+          <div className="price-card" style={{ overflowX: "auto", padding: "1rem" }}>
             <table
               style={{
                 width: "100%",
@@ -126,31 +140,37 @@ export default function Dashboard() {
             >
               <thead>
                 <tr style={{ borderBottom: "1px solid var(--border)" }}>
-                  <th style={{ padding: "1rem", textAlign: "left", color: "var(--text-muted)", fontSize: "0.85rem" }}>Ник</th>
-                  <th style={{ padding: "1rem", textAlign: "left", color: "var(--text-muted)", fontSize: "0.85rem" }}>ТЗ</th>
-                  <th style={{ padding: "1rem", textAlign: "left", color: "var(--text-muted)", fontSize: "0.85rem" }}>Контакты</th>
-                  <th style={{ padding: "1rem", textAlign: "left", color: "var(--text-muted)", fontSize: "0.85rem" }}>Цена</th>
-                  <th style={{ padding: "1rem", textAlign: "left", color: "var(--text-muted)", fontSize: "0.85rem" }}>Дедлайн</th>
-                  <th style={{ padding: "1rem", textAlign: "left", color: "var(--text-muted)", fontSize: "0.85rem" }}>Статус</th>
+                  <th style={thStyle}>Ник</th>
+                  <th style={thStyle}>ТЗ</th>
+                  <th style={thStyle}>Контакты</th>
+                  <th style={thStyle}>Цена</th>
+                  <th style={thStyle}>Дедлайн</th>
+                  <th style={thStyle}>Статус</th>
                 </tr>
               </thead>
               <tbody>
                 {orders.map((order) => (
                   <tr key={order.id} style={{ borderBottom: "1px solid var(--border)" }}>
-                    <td style={{ padding: "1rem", fontWeight: 600, color: "var(--purple-light)" }}>{order.nickname}</td>
-                    <td style={{ padding: "1rem", color: "var(--text)", maxWidth: "300px" }}>{order.brief}</td>
-                    <td style={{ padding: "1rem", color: "var(--text-muted)", fontSize: "0.9rem" }}>{order.contacts}</td>
-                    <td style={{ padding: "1rem", color: "var(--purple-light)", fontWeight: 600, whiteSpace: "nowrap" }}>
+                    <td style={tdStyle}>
+                      <span style={{ fontWeight: 600, color: "var(--purple-light)" }}>
+                        {order.nickname}
+                      </span>
+                    </td>
+                    <td style={{ ...tdStyle, maxWidth: "300px" }}>{order.brief}</td>
+                    <td style={{ ...tdStyle, color: "var(--text-muted)", fontSize: "0.9rem" }}>
+                      {order.contacts}
+                    </td>
+                    <td style={{ ...tdStyle, color: "var(--purple-light)", fontWeight: 600, whiteSpace: "nowrap" }}>
                       {order.price.toLocaleString("ru-RU")} ₽
                     </td>
-                    <td style={{ padding: "1rem" }}>
+                    <td style={tdStyle}>
                       <Deadline
                         deadline={order.deadline}
                         createdAt={order.createdAt}
                         status={order.status}
                       />
                     </td>
-                    <td style={{ padding: "1rem" }}>
+                    <td style={tdStyle}>
                       {order.status === "IN_PROGRESS" && "🔄 В работе"}
                       {order.status === "DONE" && "✅ Выполнен"}
                       {order.status === "CANCELLED" && "❌ Отменён"}
@@ -165,3 +185,15 @@ export default function Dashboard() {
     </>
   );
 }
+
+const thStyle: React.CSSProperties = {
+  padding: "1rem",
+  textAlign: "left",
+  color: "var(--text-muted)",
+  fontSize: "0.85rem",
+};
+
+const tdStyle: React.CSSProperties = {
+  padding: "1rem",
+  color: "var(--text)",
+};

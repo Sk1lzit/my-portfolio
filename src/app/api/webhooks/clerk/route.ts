@@ -51,6 +51,13 @@ const body = await req.text();  // ← СЫРОЙ body
     evt = verified as WebhookEvent;
   } catch (err) {
     console.error("[webhook] Ошибка верификации:", err);
+    console.error("[webhook] Body (первые 100):", body.slice(0, 100));
+    console.error("[webhook] Secret (первые 10):", WEBHOOK_SECRET?.slice(0, 10));
+    console.error("[webhook] Headers:", {
+      "svix-id": svix_id,
+      "svix-timestamp": svix_timestamp,
+      "svix-signature": svix_signature?.slice(0, 30),
+    });
     return NextResponse.json({ error: "Invalid signature" }, { status: 400 });
   }
 

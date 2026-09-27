@@ -7,16 +7,96 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// ===== ЮЗЕРЫ =====
+model User {
+  id          String   @id @default(cuid())
+  clerkId     String   @unique
+  email       String?
+  name        String?
+  avatar      String?
+  role        String   @default("USER") // USER | ADMIN
+  orders      Order[]
+  messages    Message[]
+  reviews     Review[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// ===== ЗАКАЗЫ =====
+model Order {
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  nickname    String   // Ник клиента
+  brief       String   // ТЗ
+  contacts    String   // Контакты
+  price       Int      // Фиксированная цена
+  deadline    DateTime // Дедлайн
+  status      String   @default("IN_PROGRESS") // IN_PROGRESS | DONE | CANCELLED
+  notes       String?  // Заметки админа
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([userId])
+  @@index([status])
+}
+
+// ===== СООБЩЕНИЯ (в ЛК) =====
+model Message {
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  fromAdmin   Boolean  @default(false) // true = от тебя, false = от клиента
+  text        String
+  read        Boolean  @default(false)
+  createdAt   DateTime @default(now())
+
+  @@index([userId])
+}
+
+// ===== ОТЗЫВЫ =====
 model Review {
-  id        String   @id @default(cuid())
-  clerkId   String   // ID пользователя из Clerk
-  name      String   // Имя автора
-  avatar    String?  // Аватарка (URL)
-  rating    Int      // Оценка 1-5
-  text      String   // Текст отзыва
-  approved  Boolean  @default(false) // Модерация
-  createdAt DateTime @default(now())
+  id          String   @id @default(cuid())
+  clerkId     String   // для совместимости со старой логикой
+  userId      String?
+  user        User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  name        String
+  avatar      String?
+  rating      Int
+  text        String
+  approved    Boolean  @default(false)
+  createdAt   DateTime @default(now())
 
   @@index([approved])
-  @@index([clerkId])
+  @@index([userId])
+}
+
+// ===== ПРОЕКТЫ (для /works) =====
+model Project {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  icon        String
+  title       String
+  tags        String[]
+  images      String[]
+  problem     String
+  solution    String
+  result      String
+  published   Boolean  @default(false)
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// ===== ЗАМЕТКИ (для /notes) =====
+model Note {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  title       String
+  excerpt     String
+  content     String
+  tags        String[]
+  published   Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }

@@ -33,11 +33,17 @@ export async function POST(req: Request) {
   let evt: WebhookEvent;
 
   try {
-    evt = wh.verify(body, {
+    const verified = wh.verify(body, {
       "svix-id": svix_id,
       "svix-timestamp": svix_timestamp,
       "svix-signature": svix_signature,
-    }) as WebhookEvent;
+    });
+
+    if (!verified) {
+      return NextResponse.json({ error: "Invalid event" }, { status: 400 });
+    }
+
+    evt = verified as WebhookEvent;
   } catch (err) {
     console.error("Ошибка верификации вебхука:", err);
     return NextResponse.json({ error: "Invalid signature" }, { status: 400 });

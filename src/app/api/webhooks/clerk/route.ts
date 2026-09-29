@@ -11,7 +11,10 @@ export async function POST(req: Request) {
   const WEBHOOK_SECRET = process.env.CLERK_WEBHOOK_SECRET;
 
   if (!WEBHOOK_SECRET) {
-    return NextResponse.json({ error: "CLERK_WEBHOOK_SECRET not set" }, { status: 500 });
+    return NextResponse.json(
+      { error: "CLERK_WEBHOOK_SECRET not set" },
+      { status: 500 }
+    );
   }
 
   const headerPayload = await headers();
@@ -43,9 +46,14 @@ export async function POST(req: Request) {
   const eventType = evt.type;
 
   if (eventType === "user.created") {
-    const { id, email_addresses, first_name, last_name, username, image_url } = evt.data;
+    const { id, email_addresses, first_name, last_name, username, image_url } =
+      evt.data;
+
     const email = email_addresses?.[0]?.email_address || null;
-    const name = [first_name, last_name].filter(Boolean).join(" ") || username || "Пользователь";
+    const name =
+      [first_name, last_name].filter(Boolean).join(" ") ||
+      username ||
+      "Пользователь";
     const role = id === ADMIN_CLERK_ID ? "ADMIN" : "USER";
 
     await prisma.user.upsert({
@@ -58,9 +66,14 @@ export async function POST(req: Request) {
   }
 
   if (eventType === "user.updated") {
-    const { id, email_addresses, first_name, last_name, username, image_url } = evt.data;
+    const { id, email_addresses, first_name, last_name, username, image_url } =
+      evt.data;
+
     const email = email_addresses?.[0]?.email_address || null;
-    const name = [first_name, last_name].filter(Boolean).join(" ") || username || "Пользователь";
+    const name =
+      [first_name, last_name].filter(Boolean).join(" ") ||
+      username ||
+      "Пользователь";
 
     await prisma.user.update({
       where: { clerkId: id },
@@ -73,7 +86,9 @@ export async function POST(req: Request) {
   if (eventType === "user.deleted") {
     const { id } = evt.data;
     if (id) {
-      await prisma.user.delete({ where: { clerkId: id } }).catch(() => {});
+      await prisma.user
+        .delete({ where: { clerkId: id } })
+        .catch(() => {});
       console.log(`[webhook] Юзер удалён: ${id}`);
     }
   }

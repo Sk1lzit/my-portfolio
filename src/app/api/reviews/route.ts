@@ -4,7 +4,6 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-// GET — получить все одобренные отзывы
 export async function GET() {
   try {
     const reviews = await prisma.review.findMany({
@@ -24,7 +23,6 @@ export async function GET() {
   }
 }
 
-// POST — создать новый отзыв
 export async function POST(req: Request) {
   try {
     const { userId } = await auth();
@@ -40,7 +38,6 @@ export async function POST(req: Request) {
     const body = await req.json();
     const { rating, text } = body;
 
-    // Валидация
     if (!text || text.trim().length < 5) {
       return NextResponse.json({ error: "Минимум 5 символов" }, { status: 400 });
     }
@@ -51,13 +48,9 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Оценка 1-5" }, { status: 400 });
     }
 
-    // Rate limit: 1 отзыв в минуту
     const oneMinuteAgo = new Date(Date.now() - 60 * 1000);
     const recentReview = await prisma.review.findFirst({
-      where: {
-        clerkId: userId,
-        createdAt: { gte: oneMinuteAgo },
-      },
+      where: { clerkId: userId, createdAt: { gte: oneMinuteAgo } },
     });
     if (recentReview) {
       return NextResponse.json(
@@ -66,7 +59,6 @@ export async function POST(req: Request) {
       );
     }
 
-    // Проверка: один отзыв от пользователя
     const existing = await prisma.review.findFirst({
       where: { clerkId: userId },
     });

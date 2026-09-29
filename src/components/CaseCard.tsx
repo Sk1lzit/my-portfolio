@@ -8,6 +8,7 @@ interface CaseCardProps {
   problem: string;
   solution: string;
   result: string;
+  link?: string;
 }
 
 export default function CaseCard({
@@ -18,6 +19,7 @@ export default function CaseCard({
   problem,
   solution,
   result,
+   link,
 }: CaseCardProps) {
   return (
     <article
@@ -172,6 +174,17 @@ export default function CaseCard({
           </p>
         </div>
       </div>
+      {link && (
+  <div style={{ marginTop: "2rem", textAlign: "center" }}>
+    <a
+      href={link}
+      className="btn btn-primary"
+      style={{ display: "inline-block", textDecoration: "none" }}
+    >
+      Подробнее о проекте →
+    </a>
+  </div>
+)}
     </article>
   );
 }

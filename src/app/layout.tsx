@@ -13,22 +13,13 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Sk1lz — Разработка на Python, Java, React",
-  description:
-    "Разработка программных продуктов на Python, Java, React. Автоматизация, боты, веб-приложения.",
+  description: "Разработка программных продуктов на Python, Java, React. Автоматизация, боты, веб-приложения.",
   openGraph: {
     title: "Sk1lz — Разработка на Python, Java, React",
-    description:
-      "Разработка программных продуктов. Автоматизация, боты, веб-приложения.",
+    description: "Разработка программных продуктов.",
     url: "https://my-portfolio-cskm.vercel.app",
     siteName: "Sk1lz",
-    images: [
-      {
-        url: "/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "Sk1lz — разработка на Python, Java, React",
-      },
-    ],
+    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Sk1lz" }],
     locale: "ru_RU",
     type: "website",
   },

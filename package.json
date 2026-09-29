@@ -2,15 +2,15 @@
   "name": "my-portfolio",
   "version": "0.1.0",
   "private": true,
-"scripts": {
-  "dev": "next dev",
-  "build": "next build",
-  "start": "next start",
-  "lint": "eslint",
-  "test": "jest",
-  "test:watch": "jest --watch",
-  "postinstall": "prisma generate"
-},
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "postinstall": "prisma generate"
+  },
   "dependencies": {
     "@clerk/nextjs": "^7.9.7",
     "@prisma/client": "^6.19.3",

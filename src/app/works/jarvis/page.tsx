@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
 
 export const metadata = {
   title: "Jarvis — локальный голосовой ассистент | Sk1lz",
@@ -17,14 +16,12 @@ export const metadata = {
 export default function JarvisPage() {
   return (
     <article style={{ maxWidth: "900px", margin: "0 auto", padding: "2rem 1rem" }}>
-      {/* ХЛЕБНЫЕ КРОШКИ */}
       <div style={{ marginBottom: "2rem", fontSize: "0.9rem" }}>
         <Link href="/works" style={{ color: "var(--purple-light)" }}>
           ← Назад к проектам
         </Link>
       </div>
 
-      {/* ЗАГОЛОВОК */}
       <header style={{ marginBottom: "3rem" }}>
         <h1
           style={{
@@ -58,58 +55,6 @@ export default function JarvisPage() {
         </p>
       </header>
 
-      {/* СКРИНЫ */}
-      <section style={{ marginBottom: "3rem" }}>
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
-            gap: "1rem",
-          }}
-        >
-          <div
-            style={{
-              borderRadius: "12px",
-              overflow: "hidden",
-              border: "1px solid var(--border)",
-              background: "var(--bg-dark)",
-              padding: "0.5rem",
-            }}
-          >
-            <Image
-              src="/images/jarvis-1.png"
-              alt="Jarvis — диалог в консоли"
-              width={1600}
-              height={900}
-              sizes="(max-width: 768px) 100vw, 900px"
-              quality={95}
-              priority
-              style={{ width: "100%", height: "auto", display: "block", borderRadius: "8px" }}
-            />
-          </div>
-          <div
-            style={{
-              borderRadius: "12px",
-              overflow: "hidden",
-              border: "1px solid var(--border)",
-              background: "var(--bg-dark)",
-              padding: "0.5rem",
-            }}
-          >
-            <Image
-              src="/images/jarvis-2.png"
-              alt="Jarvis — структура проекта"
-              width={1600}
-              height={900}
-              sizes="(max-width: 768px) 100vw, 900px"
-              quality={95}
-              style={{ width: "100%", height: "auto", display: "block", borderRadius: "8px" }}
-            />
-          </div>
-        </div>
-      </section>
-
-      {/* ПРОБЛЕМА / РЕШЕНИЕ / РЕЗУЛЬТАТ */}
       <section style={{ display: "grid", gap: "1.5rem", marginBottom: "3rem" }}>
         <div
           style={{
@@ -239,7 +184,6 @@ export default function JarvisPage() {
         </div>
       </section>
 
-      {/* ТЕХНИЧЕСКИЕ ДЕТАЛИ */}
       <section style={{ marginBottom: "3rem" }}>
         <h2
           style={{
@@ -297,7 +241,6 @@ export default function JarvisPage() {
         </div>
       </section>
 
-      {/* ФУТЕР */}
       <footer style={{ textAlign: "center", padding: "2rem 0" }}>
         <Link href="/works" className="btn btn-primary">
           ← Все проекты

@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 interface CaseCardProps {
   icon: string;
@@ -19,7 +20,7 @@ export default function CaseCard({
   problem,
   solution,
   result,
-   link,
+  link,
 }: CaseCardProps) {
   return (
     <article
@@ -78,7 +79,6 @@ export default function CaseCard({
                 height={900}
                 sizes="(max-width: 768px) 100vw, 1200px"
                 quality={95}
-                priority
                 style={{
                   width: "100%",
                   height: "auto",
@@ -174,17 +174,19 @@ export default function CaseCard({
           </p>
         </div>
       </div>
+
+      {/* КНОПКА ПОДРОБНЕЕ */}
       {link && (
-  <div style={{ marginTop: "2rem", textAlign: "center" }}>
-    <a
-      href={link}
-      className="btn btn-primary"
-      style={{ display: "inline-block", textDecoration: "none" }}
-    >
-      Подробнее о проекте →
-    </a>
-  </div>
-)}
+        <div style={{ marginTop: "2rem", textAlign: "center" }}>
+          <Link
+            href={link}
+            className="btn btn-primary"
+            style={{ display: "inline-block", textDecoration: "none" }}
+          >
+            Подробнее о проекте →
+          </Link>
+        </div>
+      )}
     </article>
   );
 }
